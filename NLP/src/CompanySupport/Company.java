@@ -52,6 +52,7 @@ public class Company
 		this.industry = ind;
 		this.parent = parent;
 		this.president = pres;
+		this.cal = null;
 	}
 	
 	/********************************************************
@@ -65,95 +66,62 @@ public class Company
 		this.name = name;
 		this.symbol = symbol;
 		this.industry = ind;
+		this.parent = null;
+		this.president = null;
+		this.cal = null;
 	}
 	// end constructors
 	
 	// getters and setters
-	/***********************************************
-	 * Change name of company
-	 * @param name = new name of company
-	 ***********************************************/
 	public void setName(String name)
 	{
 		this.name = name;
 	}
-	
-	/***************************
-	 * Get company name
-	 * @return company name
-	 ***************************/
 	public String getName()
 	{
 		return name;
 	}
 	
-	/*********************************************
-	 * Set stock market abbreviation of company
-	 * @param sy = new abbreviation
-	 *********************************************/
 	public void setSymbol(String sy)
 	{
 		this.symbol = sy;
 	}
-	
-	/*********************************************
-	 * Get stock market abbreviation of company
-	 * @return abbreviation of company
-	 *********************************************/
 	public String getSymbol()
 	{
 		return symbol;
 	}
 	
-	/*********************************
-	 * Change industry company is in
-	 * @param in = new industry
-	 *********************************/
 	public void setIndustry(String in)
 	{
 		this.industry = in;
 	}
-	
-	/***********************************
-	 * Get industry the company is in
-	 * @return industry of company
-	 ***********************************/
 	public String getIndustry()
 	{
 		return industry;
 	}
 	
-	/*********************************
-	 * Set new president of company
-	 * @param pres = new president
-	 *********************************/
+	public void setParent(String c)
+	{
+		this.parent = c;
+	}
+	public String getParent()
+	{
+		return this.parent;
+	}
+	
 	public void setPresident(String pres)
 	{
 		this.president = pres;
 	}
-	
-	/******************************
-	 * Get president of company
-	 * @return name of president
-	 ******************************/
 	public String getPresident()
 	{
 		return president;
 	}
 	
-	/**********************************
-	 * Set new calender for company
-	 * @param cal = new calender
-	 **********************************/
 	public void setCalender(Calendar cal)
 	{
 		this.cal = cal;
 	}
-	
-	/***********************************
-	 * Get whole calender of company
-	 * @return calender for company
-	 ***********************************/
 	public Calendar getCalender()
 	{
 		return cal;

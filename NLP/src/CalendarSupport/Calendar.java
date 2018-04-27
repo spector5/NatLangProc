@@ -28,7 +28,7 @@ public class Calendar
 		this.isLeapYear = leap;
 		months = new ArrayList<>();
 		
-		// fill basic calender
+		// fill basic calendar
 		months.add(new Month("January", "Winter", 1, year));
 		months.add(new Month("February", "Winter", 1, year));
 		months.add(new Month("March", "Spring", 1, year));
@@ -86,16 +86,28 @@ public class Calendar
 			}
 		}
 		
-		// add events
+		// add events that happen every year on the same day
+		/* others to add
+		 * martin luther king jr day, third mon in jan
+		 * presidents day, third mon in feb
+		 * easter, unknown
+		 * mothers day, second sun in may
+		 * memorial day, last mon in may
+		 * fathers day, third sun in jun
+		 * labor day, first mon in sept
+		 * columbus day, second mon in oct
+		 * thanksgiving, fourth thur in nov
+		 * black friday, day after easter
+		 * cyber monday, mon after thanksgiving
+		 */
 		months.get(0).getDay(0).addEvent(new Event("New Years Day", true, "1/1", 1, TimeUnit.Day));
 		months.get(1).getDay(1).addEvent(new Event("Groundhogs Day", true, "2/2", 1, TimeUnit.Day));
 		months.get(1).getDay(13).addEvent(new Event("Valentines Day", true, "2/14", 1, TimeUnit.Day));
-		months.get(2).getDay(19).addEvent(new Event("March Equinox", true, "3/20", 1, TimeUnit.Day));
-		months.get(3).getDay(17).addEvent(new Event("Tax Day", true, "4/18", 1, TimeUnit.Day));
+		months.get(3).getDay(14).addEvent(new Event("Tax Day", true, "4/15", 1, TimeUnit.Day));
 		months.get(4).getDay(4).addEvent(new Event("Cinco De Mayo", true, "5/5", 1, TimeUnit.Day));
-		months.get(5).getDay(20).addEvent(new Event("June Solstice", true, "6/21", 1, TimeUnit.Day));
 		months.get(6).getDay(3).addEvent(new Event("Independence Day", true, "7/4", 1, TimeUnit.Day));
 		months.get(9).getDay(30).addEvent(new Event("Halloween", true, "10/31", 1, TimeUnit.Day));
+		months.get(10).getDay(10).addEvent(new Event("Veterans Day", true, "11/11", 1, TimeUnit.Day));
 		months.get(11).getDay(24).addEvent(new Event("Christmas", true, "12/25", 1, TimeUnit.Day));
 	}
 	// end constructors

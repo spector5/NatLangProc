@@ -7,14 +7,14 @@ import CompanySupport.Company;
 /**
  * Main class for predictor software.
  * 
- * Currently in testing state,
- * Alpha 0.1
+ * Task 1-
+ * Get the indecies filled
+ * Get a company populated
+ * Calculate corrolation
  * 
- * Goals--------
- * 		Get company made
- * 		make full calendar for current year
- * 		populate test events
- * 		populate test price graph
+ * Task 2-
+ * Get leading company filled
+ * Calculate corrolation
  * 
  * @author Austin
  */

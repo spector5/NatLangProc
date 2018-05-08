@@ -1,5 +1,7 @@
 package CompanySupport;
 
+import java.util.ArrayList;
+
 import CalendarSupport.Calendar;
 
 /*******************************************************************
@@ -8,14 +10,11 @@ import CalendarSupport.Calendar;
  * trends in stock price.
  * @author Austin
  *******************************************************************/
-public class Company 
+public class Company extends Entity
 {
-	private String name;
-	private String symbol;		// stock market abbreviation
 	private String industry;
 	private String parent;		// parent company
 	private String president;	// president/ceo/head of company
-	private Calendar cal;		// unique calendar for company
 	
 	// constructors
 	/************************************************************
@@ -27,7 +26,7 @@ public class Company
 	 * @param pres = president/ceo of company
 	 * @param calandar = calender specific to company
 	 ************************************************************/
-	public Company(String name, String symbol, String ind, String parent, String pres, Calendar calandar)
+	public Company(String name, String symbol, String ind, String parent, String pres, ArrayList<Calendar> calandar)
 	{
 		this.name = name;
 		this.symbol = symbol;
@@ -73,24 +72,6 @@ public class Company
 	// end constructors
 	
 	// getters and setters
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-	public String getName()
-	{
-		return name;
-	}
-	
-	public void setSymbol(String sy)
-	{
-		this.symbol = sy;
-	}
-	public String getSymbol()
-	{
-		return symbol;
-	}
-	
 	public void setIndustry(String in)
 	{
 		this.industry = in;
@@ -116,15 +97,6 @@ public class Company
 	public String getPresident()
 	{
 		return president;
-	}
-	
-	public void setCalender(Calendar cal)
-	{
-		this.cal = cal;
-	}
-	public Calendar getCalender()
-	{
-		return cal;
 	}
 	// end getters and setters
 }

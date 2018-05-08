@@ -13,8 +13,67 @@ public class Month
 	private String season;
 	private String name;
 	private int year;
+	private int length;
 	
 	// constructors
+	/*****************************************
+	 * Constructor, set basic information
+	 * @param nm = number of month
+	 * @param sea = season of month
+	 * @param qu = fiscal quarter
+	 * @param year = year of month
+	 *****************************************/
+	public Month(int nm)
+	{
+		this.season = null;
+		this.quarter = 0;
+		this.year = 0;
+		this.days = null;
+		this.length = 0;
+		switch (nm)
+		{
+		case 1:
+			this.name = "January";
+			break;
+		case 2:
+			this.name = "February";
+			break;
+		case 3:
+			this.name = "March";
+			break;
+		case 4:
+			this.name = "April";
+			break;
+		case 5:
+			this.name = "May";
+			break;
+		case 6:
+			this.name = "June";
+			break;
+		case 7:
+			this.name = "July";
+			break;
+		case 8:
+			this.name = "August";
+			break;
+		case 9:
+			this.name = "September";
+			break;
+		case 10:
+			this.name = "October";
+			break;
+		case 11:
+			this.name = "November";
+			break;
+		case 12:
+			this.name = "December";
+			break;
+		default:
+			this.name = null;
+			break;
+		}
+	}
+	
 	/*****************************************
 	 * Constructor, set basic information
 	 * @param nm = name of month
@@ -28,7 +87,8 @@ public class Month
 		this.season = sea;
 		this.quarter = qu;
 		this.year = year;
-		days = new ArrayList<>();
+		this.days = new ArrayList<>();
+		this.length = 0;
 	}
 	// end constructors
 	
@@ -49,6 +109,20 @@ public class Month
 	public String getName()
 	{
 		return name;
+	}
+	
+	public void setLength(int leng)
+	{
+		this.length = leng;
+	}
+	
+	/****************************
+	 * Get name of month
+	 * @return name of month
+	 ****************************/
+	public int getLength()
+	{
+		return length;
 	}
 	
 	/*************************
@@ -133,4 +207,37 @@ public class Month
 		return days;
 	}
 	// end getters and setters
+	
+	public int getMonthNum()
+	{
+		switch (name)
+		{
+		case "January":
+			return 1;
+		case "February":
+			return 2;
+		case "March":
+			return 3;
+		case "April":
+			return 4;
+		case "May":
+			return 5;
+		case "June":
+			return 6;
+		case "July":
+			return 7;
+		case "August":
+			return 8;
+		case "September":
+			return 9;
+		case "October":
+			return 10;
+		case "November":
+			return 11;
+		case "December":
+			return 12;
+		default:
+			return -1;
+		}
+	}
 }

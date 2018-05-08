@@ -1,8 +1,13 @@
 package RunningPackage;
 
+import java.io.IOException;
+import java.util.ArrayList;
+
 import CalendarSupport.Calendar;
 import CalendarSupport.DayName;
 import CompanySupport.Company;
+import CompanySupport.EntityOperations;
+import CompanySupport.Index;
 
 /**
  * Main class for predictor software.
@@ -16,19 +21,26 @@ import CompanySupport.Company;
  * Get leading company filled
  * Calculate corrolation
  * 
+ * TODO weekend prices are 0, market isn't open and haven't figured out how to deal with this
+ * 
  * @author Austin
  */
 public class Driver 
 {
 	
-	public static void main (String[] args)
+	public static void main (String[] args) throws IOException
 	{
-		Company test = new Company("Krusty Krab", "KK", "fast food", "", "Eugene Krabs", new Calendar(false, 2017, DayName.SUNDAY));
+		ArrayList<Calendar> nasCal = new ArrayList<>();
+		nasCal.add(new Calendar(false, 2013, DayName.TUESDAY));
+		Index nas = new Index("NASDAQ", "^IXIC", nasCal);
+		ArrayList<Calendar> krabCal = new ArrayList<>();
+		krabCal.add(new Calendar(false, 2013, DayName.TUESDAY));
+		Company krab = new Company("Krusty Krab", "KK", "fast food", null, "Eugene Krabs", krabCal);
 		
-		System.out.println("Company: " + test.getName());
-		System.out.println("Stock Symbol: " + test.getSymbol());
-		System.out.println("Industry: " + test.getIndustry());
-		System.out.println("Owner: " + test.getPresident());
-		test.getCalender().printAllEvents();
+		nas.fillCalenderWithPrice("1/1/2013", "12/31/2013");
+		krab.fillCalenderWithPrice("1/1/2013", "12/31/2013");
+		
+		EntityOperations.calcCorrelation(krab,  nas);
+
 	}
 }

@@ -1,12 +1,18 @@
 package CompanySupport;
 
-import CalendarSupport.Calendar;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
 
-public class Index {
-	private String name;
-	private String symbol;		// stock market abbreviation
-	private Calendar cal;		// unique calendar for company
-	
+import CalendarSupport.Calendar;
+import CalendarSupport.Day;
+import CalendarSupport.Month;
+
+public class Index extends Entity
+{	
 	// constructors
 	/************************************************************
 	 * Constructor, set basic information
@@ -14,7 +20,7 @@ public class Index {
 	 * @param symbol = symbol of company on stock market
 	 * @param calandar = calendar specific to company
 	 ************************************************************/
-	public Index(String name, String symbol, Calendar calandar)
+	public Index(String name, String symbol, ArrayList<Calendar> calandar)
 	{
 		this.name = name;
 		this.symbol = symbol;
@@ -51,15 +57,6 @@ public class Index {
 	public String getSymbol()
 	{
 		return symbol;
-	}
-	
-	public void setCalender(Calendar cal)
-	{
-		this.cal = cal;
-	}
-	public Calendar getCalender()
-	{
-		return cal;
 	}
 	// end getters and setters
 }

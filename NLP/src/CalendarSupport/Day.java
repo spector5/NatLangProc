@@ -2,6 +2,7 @@ package CalendarSupport;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.StringTokenizer;
 
 /***************************************************************************
  * Class represents days. Each day is for a specific company. Each day
@@ -9,16 +10,31 @@ import java.util.Iterator;
  * price for its company.
  * @author Austin
  ***************************************************************************/
-public class Day 
+public class Day implements Comparable<Day>
 {
 	private int number;		// number on the calendar
 	private Month month;	// month it belongs to
 	private ArrayList<Event> events;	// events happening on this day, one time or recurring doesn't matter
-	private double closePrice;
+	private float closePrice;
 	private int year;
-	private DayName name;	// day of the week
+	private String name;	// day of the week
 	
 	// constructors
+	/*****************************************
+	 * Constructor, set basic information
+	 * @param date = date that will be represented
+	 *****************************************/
+	public Day(String date)
+	{
+		StringTokenizer toke = new StringTokenizer(date, "/");
+		this.month = new Month(Integer.parseInt(toke.nextToken()));
+		this.number = Integer.parseInt(toke.nextToken());
+		this.year = Integer.parseInt(toke.nextToken());
+		this.events = null;
+		this.name = null;	// TODO make getter setter
+		this.closePrice = 0;
+	}
+	
 	/*****************************************
 	 * Constructor, set basic information
 	 * @param num = number of day
@@ -26,13 +42,14 @@ public class Day
 	 * @param month = month day belongs to
 	 * @param year = current year
 	 *****************************************/
-	public Day(int num, DayName name, Month month, int year)
+	public Day(int num, String name, Month month, int year)
 	{
 		this.number = num;
 		this.month = month;
 		events = new ArrayList<>();
 		this.year = year;
 		this.name = name;	// TODO make getter setter
+		this.closePrice = 0;
 	}
 	
 	/***************************************
@@ -42,7 +59,7 @@ public class Day
 	 * @param year = current year
 	 * @param price = closing stock price
 	 ***************************************/
-	public Day(int num, Month month, int year, double price)
+	public Day(int num, Month month, int year, float price)
 	{
 		this.number = num;
 		this.month = month;
@@ -53,142 +70,108 @@ public class Day
 	// end constructors
 	
 	// getters and setters
-	/*************************
-	 * Get number of day
-	 * @return number of day
-	 *************************/
 	public int getNum()
 	{
 		return number;
 	}
-	
-	/*************************
-	 * Set new number of day
-	 * @param num
-	 *************************/
 	public void setNum(int num)
 	{
 		number = num;
 	}
 	
-	/****************************
-	 * Get month day belongs to
-	 * @return parent month
-	 ****************************/
 	public Month getMonth()
 	{
 		return month;
 	}
-	
-	/*****************************
-	 * Set month day belongs to
-	 * @param mon = new month
-	 *****************************/
 	public void setMonth(Month mon)
 	{
 		month = mon;
 	}
-	
-	/**************************************
-	 * Get list of all events on this day
-	 * @return list of events
-	 **************************************/
+
 	public ArrayList<Event> getEvents()
 	{
 		return events;
 	}
 	
-	/************************************************
-	 * Add new event to list
-	 * @param ev = new event to add
-	 * @return true if successful, otherwise false
-	 ************************************************/
 	public boolean addEvent(Event ev)
 	{
 		return events.add(ev);
 	}
-	
-	/************************************************
-	 * Take event out of list of events
-	 * @param ev = new event
-	 * @return true if successful, otherwise false
-	 ************************************************/
 	public boolean removeEvent(Event ev)
 	{
 		return events.remove(ev);
 	}
 	
-	/***************************
-	 * Get specific event
-	 * @param i = index
-	 * @return event at index
-	 ***************************/
 	public Event getByIndex(int i)
 	{
 		return events.remove(i);
 	}
 	
-	/*******************************
-	 * Get iterator of event list
-	 * @return iterator of events
-	 *******************************/
 	public Iterator<Event> getEventIterator()
 	{
 		return events.iterator();
 	}
-	
-	/*****************************************
-	 * Get closing stock price for this day
-	 * @return stock price
-	 *****************************************/
-	public double getPrice()
+
+	public float getPrice()
 	{
 		return closePrice;
 	}
-	
-	/**********************************
-	 * Set new closing price for day
-	 * @param price = new price
-	 **********************************/
-	public void setPrice(double price)
+	public void setPrice(float price)
 	{
 		closePrice = price;
 	}
 	
-	/****************************
-	 * Get current year
-	 * @return current year
-	 ****************************/
 	public int getYear()
 	{
 		return year;
 	}
-	
-	/*************************
-	 * Set new year
-	 * @param yr = new year
-	 *************************/
 	public void setYear(int yr)
 	{
 		year = yr;
 	}
-	
-	/****************************
-	 * Get day of the week
-	 * @return day of the week
-	 ****************************/
-	public DayName getDayOfWeek()
+
+	public String getDayOfWeek()
 	{
 		return name;
 	}
-	
-	/*******************************************
-	 * Get date as a string
-	 * @return date in month number, year form
-	 *******************************************/
-	public String getDate(int num)
+
+	public String getDate()
 	{
 		return month.getName() + " " + number + ", " + year;
 	}
 	// end getters and setters
+
+	/**
+	 * Compares the current date to a date passed in
+	 * @param arg0 = day to compare to
+	 * @return 1 if this is later, -1 if this is earlier, 0 if same day
+	 */
+	@Override
+	public int compareTo(Day arg0) 
+	{
+		//StringTokenizer arg0Date = new StringTokenizer(arg0.getDate(), "/");
+		int arg0Month = arg0.getMonth().getMonthNum();
+		int arg0Day = arg0.getNum();
+		int arg0Year = arg0.getYear();
+		
+		// check year
+		if (this.year > arg0Year)
+			return 1;
+		else if (this.year < arg0Year)
+			return -1;
+		
+		// check month
+		if (this.month.getMonthNum() > arg0Month)
+			return 1;
+		else if (this.month.getMonthNum() < arg0Month)
+			return -1;
+		
+		// check day
+		if (this.number > arg0Day)
+			return 1;
+		else if (this.number < arg0Day)
+			return -1;
+		
+		return 0;
+	}
 }

@@ -37,8 +37,10 @@ public class Driver
 		krabCal.add(new Calendar(false, 2013, DayName.TUESDAY));
 		Company krab = new Company("Krusty Krab", "KK", "fast food", null, "Eugene Krabs", krabCal);
 		
-		nas.fillCalenderWithPrice("1/1/2013", "12/31/2013");
-		krab.fillCalenderWithPrice("1/1/2013", "12/31/2013");
+		//nas.fillCalenderWithPrice("1/1/2013", "12/31/2013");
+		//krab.fillCalenderWithPrice("1/1/2013", "12/31/2013");
+		nas.fillCalenderWithPrice("3/1/2013", "3/11/2013");
+		krab.fillCalenderWithPrice("3/1/2013", "3/11/2013");
 		
 		EntityOperations.calcCorrelation(krab,  nas);
 

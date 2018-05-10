@@ -134,6 +134,7 @@ public abstract class Entity
 			line = br.readLine();
 		}
 	}
+	
 	public float getAvgPrice(Day start, Day end) 
 	{
 		float total = 0;
@@ -156,5 +157,28 @@ public abstract class Entity
 			}
 		}
 		return total / num;
+	}
+	
+	public ArrayList<Float> getPriceListBetweenDates(Day start, Day end)
+	{
+		ArrayList<Float> ret = new ArrayList<>();
+		
+		for (int y = 0; y < cal.size(); y++)
+		{
+			Calendar calen = cal.get(y);
+			for (int m = 0; m < calen.getAllMonths().size(); m++)
+			{
+				Month month = calen.getMonth(m);
+				for (int d = 0; d < month.getLength(); d++)
+				{
+					Day day = month.getDay(d);
+					if (day.getPrice() != 0 && (day.compareTo(start) >= 0 && day.compareTo(end) <= 0))
+					{
+						ret.add(day.getPrice());
+					}
+				}
+			}
+		}
+		return ret;
 	}
 }

@@ -4,10 +4,15 @@ import java.util.ArrayList;
 
 import CalendarSupport.Day;
 
+/*********************************************************
+ * Static class that will have mathematic operations for
+ * use on entities.
+ * @author Austin
+ *********************************************************/
 public class EntityOperations 
 {
 	/**
-	 * Calculates the corolation of both entities for the range they overlap
+	 * Calculates the correlation of both entities for the range they overlap
 	 * @param e1 = entity we are interested in
 	 * @param e2 = entity to compare to
 	 * @return floating point representation of correlation percentage

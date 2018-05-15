@@ -18,10 +18,10 @@ public class Calendar
 	private final int WEEK_LEN = 7;
 	
 	// constructors
-	/*****************************************************************************************
+	/**
 	 * Constructor, will fill calendar with basic, recurring events (like regular holidays)
 	 * @param leap = true if leap year
-	 *****************************************************************************************/
+	 */
 	public Calendar(boolean leap, int year, String firstDay)
 	{
 		this.year = year;
@@ -131,11 +131,6 @@ public class Calendar
 		// add events that happen every year on the same day
 		/* others to add
 		 * easter, unknown
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
 		 */
 		months.get(0).getDay(0).addEvent(new Event("New Years Day", true, "1/1", 1, TimeUnit.Day));
 		months.get(1).getDay(1).addEvent(new Event("Groundhogs Day", true, "2/2", 1, TimeUnit.Day));
@@ -272,12 +267,34 @@ public class Calendar
 	// end constructors
 	
 	// getters and setters
+	public boolean getIsLeapYear()
+	{
+		return this.isLeapYear;
+	}
+	public void setIsLeapYear(boolean leapYear)
+	{
+		this.isLeapYear = leapYear;
+	}
+	
+	public int getYear()
+	{
+		return this.year;
+	}
+	public void setYear(int year)
+	{
+		this.year = year;
+	}
+	
 	public Month getMonth(int index)
 	{
 		return months.get(index);
 	}
 	// end getters and setters
 	
+	/**
+	 * Returns the whole calendar of months
+	 * @return
+	 */
 	public ArrayList<Month> getAllMonths()
 	{
 		return months;

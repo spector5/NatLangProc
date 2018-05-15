@@ -11,6 +11,12 @@ import CalendarSupport.Calendar;
 import CalendarSupport.Day;
 import CalendarSupport.Month;
 
+/*******************************************************************
+ * Class that represents a business object. This class will hold a
+ * calendar for a specific company that will be processed to find
+ * trends in stock price.
+ * @author Austin
+ *******************************************************************/
 public abstract class Entity 
 {
 	protected String name;
@@ -46,14 +52,21 @@ public abstract class Entity
 	}
 	// end getters and setters
 	
+	/**
+	 * Finds the latest date that has a stock value
+	 * @return day with the last stock value
+	 */
 	public Day getLastDay()
 	{
+		// iterate years
 		for (int p = cal.size() - 1; p >= 0; p--)
 		{
 			Calendar c = cal.get(p);
+			// iterate months
 			for (int i = 11; i >= 0; i--)
 			{
 				Month m = c.getMonth(i);
+				// iterate days
 				for (int q = m.getLength() - 1; q >= 0; q--)
 				{
 					if (m.getDay(q).getPrice() != 0.0)
@@ -64,15 +77,22 @@ public abstract class Entity
 		return null;
 	}
 	
-	// todo this gets all 0s for e2 for some reason
+	// TODO this gets all 0s for e2 for some reason (not sure if this was fixed 5/14)
+	/**
+	 * Finds the first date that has a stock value
+	 * @return day with first stock value
+	 */
 	public Day getFirstDay()
 	{
+		// iterate years
 		for (int p = 0; p < cal.size(); p++)
 		{
 			Calendar c = cal.get(p);
+			// iterate months
 			for (int i = 0; i < 12; i++)
 			{
 				Month m = c.getMonth(i);
+				// iterate days
 				for (int q = 0; q < m.getLength(); q++)
 				{
 					if (m.getDay(q).getPrice() != 0.0)
@@ -82,7 +102,13 @@ public abstract class Entity
 		}
 		return null;
 	}
-	
+
+	/**
+	 * Fills the calendar with stock prices found in the companies flat text file
+	 * @param startDate = date in file to start finding prices
+	 * @param endDate = date in file to finish finding prices
+	 * @throws IOException
+	 */
 	public void fillCalenderWithPrice(String startDate, String endDate) throws IOException
 	{
 		BufferedReader br;
@@ -112,7 +138,7 @@ public abstract class Entity
 				break;
 		}
 		
-		// iterates through relevent dates
+		// iterates through relevant dates
 		StringTokenizer tokenizer;
 		int monthVal;
 		int dayVal;
@@ -134,17 +160,26 @@ public abstract class Entity
 			line = br.readLine();
 		}
 	}
-	
+
+	/**
+	 * Averages all prices in calendar between two dates
+	 * @param start = first day to add up
+	 * @param end = last day to add up
+	 * @return float of average price
+	 */
 	public float getAvgPrice(Day start, Day end) 
 	{
 		float total = 0;
 		int num = 0;
+		// iterate years
 		for (int y = 0; y < cal.size(); y++)
 		{
 			Calendar calen = cal.get(y);
+			// iterate months
 			for (int m = 0; m < calen.getAllMonths().size(); m++)
 			{
 				Month month = calen.getMonth(m);
+				// iterate days
 				for (int d = 0; d < month.getLength(); d++)
 				{
 					Day day = month.getDay(d);
@@ -159,6 +194,12 @@ public abstract class Entity
 		return total / num;
 	}
 	
+	/**
+	 * Returns list of prices between two dates
+	 * @param start = first day to add to list
+	 * @param end = last day to add to list
+	 * @return list of prices
+	 */
 	public ArrayList<Float> getPriceListBetweenDates(Day start, Day end)
 	{
 		ArrayList<Float> ret = new ArrayList<>();

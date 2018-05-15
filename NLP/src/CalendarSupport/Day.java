@@ -20,10 +20,10 @@ public class Day implements Comparable<Day>
 	private String name;	// day of the week
 	
 	// constructors
-	/*****************************************
+	/**
 	 * Constructor, set basic information
 	 * @param date = date that will be represented
-	 *****************************************/
+	 */
 	public Day(String date)
 	{
 		StringTokenizer toke = new StringTokenizer(date, "/");
@@ -35,13 +35,13 @@ public class Day implements Comparable<Day>
 		this.closePrice = 0;
 	}
 	
-	/*****************************************
+	/**
 	 * Constructor, set basic information
 	 * @param num = number of day
 	 * @param name = day of the week
 	 * @param month = month day belongs to
 	 * @param year = current year
-	 *****************************************/
+	 */
 	public Day(int num, String name, Month month, int year)
 	{
 		this.number = num;
@@ -52,13 +52,13 @@ public class Day implements Comparable<Day>
 		this.closePrice = 0;
 	}
 	
-	/***************************************
+	/**
 	 * Constructor, set basic information
 	 * @param num = number of day
 	 * @param month = month day belongs to
 	 * @param year = current year
 	 * @param price = closing stock price
-	 ***************************************/
+	 */
 	public Day(int num, Month month, int year, float price)
 	{
 		this.number = num;
@@ -102,7 +102,7 @@ public class Day implements Comparable<Day>
 		return events.remove(ev);
 	}
 	
-	public Event getByIndex(int i)
+	public Event getEventByIndex(int i)
 	{
 		return events.remove(i);
 	}

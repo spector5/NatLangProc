@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import CalendarSupport.Calendar;
 
 /*******************************************************************
- * Class that represents a single company. This class will hold a
- * calendar for a specific company that will be processed to find
- * trends in stock price.
+ * Class that represents a single company.
  * @author Austin
  *******************************************************************/
 public class Company extends Entity
@@ -17,7 +15,7 @@ public class Company extends Entity
 	private String president;	// president/ceo/head of company
 	
 	// constructors
-	/************************************************************
+	/**
 	 * Constructor, set basic information
 	 * @param name = name of company
 	 * @param symbol = symbol of company on stock market
@@ -25,7 +23,7 @@ public class Company extends Entity
 	 * @param parent = parent company (blank if there are none)
 	 * @param pres = president/ceo of company
 	 * @param calandar = calender specific to company
-	 ************************************************************/
+	 */
 	public Company(String name, String symbol, String ind, String parent, String pres, ArrayList<Calendar> calandar)
 	{
 		this.name = name;
@@ -36,14 +34,14 @@ public class Company extends Entity
 		this.cal = calandar;
 	}
 	
-	/***********************************************************
+	/**
 	 * Constructor, set basic information
 	 * @param name = name of company
 	 * @param symbol = symbol of company on stock market
 	 * @param ind = industry of company
 	 * @param parent = parent company (blank if there are none)
 	 * @param pres = president/ceo of company
-	 ***********************************************************/
+	 */
 	public Company(String name, String symbol, String ind, String parent, String pres)
 	{
 		this.name = name;
@@ -54,12 +52,12 @@ public class Company extends Entity
 		this.cal = null;
 	}
 	
-	/********************************************************
+	/**
 	 * Constructor, set basic information
 	 * @param name = name of company
 	 * @param symbol = symbol of company on stock market
 	 * @param ind = industry of company
-	 ********************************************************/
+	 */
 	public Company(String name, String symbol, String ind)
 	{
 		this.name = name;

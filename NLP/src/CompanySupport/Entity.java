@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.StringTokenizer;
 
 import CalendarSupport.Calendar;
@@ -221,5 +223,43 @@ public abstract class Entity
 			}
 		}
 		return ret;
+	}
+	
+	/**
+	 * Returns table of prices between two dates
+	 * @param start = first day to add to list
+	 * @param end = last day to add to list
+	 * @return table of prices with date as key
+	 */
+	public LinkedHashMap<String, Float> getPriceTableBetweenDates(Day start, Day end)
+	{
+		LinkedHashMap<String, Float> ret = new LinkedHashMap<>();
+		
+		for (int y = 0; y < cal.size(); y++)
+		{
+			Calendar calen = cal.get(y);
+			for (int m = 0; m < calen.getAllMonths().size(); m++)
+			{
+				Month month = calen.getMonth(m);
+				for (int d = 0; d < month.getLength(); d++)
+				{
+					Day day = month.getDay(d);
+					if (day.getPrice() != 0 && (day.compareTo(start) >= 0 && day.compareTo(end) <= 0))
+					{
+						ret.put(day.getDate(), day.getPrice());
+					}
+				}
+			}
+		}
+		return ret;
+	}
+	
+	/**
+	 * Creates a calendar from a map of dates and prices (should only be used for averaged entities)
+	 * @param map = map of date strings and price floats
+	 */
+	public void createCalendarFromMap(LinkedHashMap<String, Float> map)
+	{
+		
 	}
 }

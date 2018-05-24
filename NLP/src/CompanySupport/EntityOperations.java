@@ -1,6 +1,9 @@
 package CompanySupport;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import CalendarSupport.Day;
 
@@ -89,5 +92,42 @@ public class EntityOperations
 		
 		// div ab/sqrt(a^2 x b^2)
 		return (float) (abSum / (Math.sqrt(aSquareSum * bSquareSum)));
+	}
+	
+	/**
+	 * Creates average index for all days arguments overlap
+	 * @param indexs = all index entities to average
+	 * @return index instance that contains the average values
+	 */
+	public static Index combineIndices(Index... indexs)
+	{
+		int num = indexs.length; // number of indices
+		Index ret = new Index();
+		
+		// find bounds
+		Day[][] bounds = new Day[indexs.length][2];
+		for (int i = 0; i < num; i++)
+		{
+			bounds[i][0] = indexs[i].getFirstDay();
+			bounds[i][1] = indexs[i].getLastDay();
+		}
+		
+		// get all prices as iterators
+		ArrayList<LinkedHashMap<String, Float>> prices = new ArrayList<>();
+		for (int i = 0; i < num; i++)
+			prices.add(indexs[i].getPriceTableBetweenDates(bounds[i][0], bounds[i][1]));
+		
+		// average all prices
+		LinkedHashMap<String, Float> averages = new LinkedHashMap<>();	
+		for (String date : indexs[0].getPriceTableBetweenDates(bounds[0][0], bounds[0][1]).keySet())
+		{
+			float avg = 0;
+			// get all prices for a day
+			for (int i = 0; i < num; i++)
+				avg += prices.get(i).get(date);
+			
+			averages.put(date, avg / num);
+		}
+		return null;
 	}
 }

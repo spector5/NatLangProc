@@ -19,6 +19,16 @@ public class Index extends Entity
 {	
 	// constructors
 	/**
+	 * Constructor, set basic information; should only be used for averaged indices
+	 */
+	public Index()
+	{
+		this.name = null;
+		this.symbol = null;
+		this.cal = new ArrayList<>();
+	}
+	
+	/**
 	 * Constructor, set basic information
 	 * @param name = name of company
 	 * @param symbol = symbol of company on stock market

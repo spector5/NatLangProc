@@ -1,12 +1,13 @@
 package CalendarSupport;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /***********************************
  * Class that represents a month.
  * @author Austin
  ***********************************/
-public class Month 
+public class Month implements Serializable
 {
 	private ArrayList<Day> days;	// list of all days
 	private int quarter;
@@ -14,14 +15,12 @@ public class Month
 	private String name;
 	private int year;
 	private int length;
+	private String lastDay;
 	
 	// constructors
 	/**
 	 * Constructor, set basic information
 	 * @param nm = number of month
-	 * @param sea = season of month
-	 * @param qu = fiscal quarter
-	 * @param year = year of month
 	 */
 	public Month(int nm)
 	{
@@ -30,6 +29,7 @@ public class Month
 		this.year = 0;
 		this.days = null;
 		this.length = 0;
+		this.lastDay = null;
 		switch (nm)
 		{
 		case 1:
@@ -79,9 +79,11 @@ public class Month
 	 * @param nm = name of month
 	 * @param sea = season of month
 	 * @param qu = fiscal quarter
+	 * @param length = number of days in month
 	 * @param year = year of month
+	 * @param firstDay = index from DayName of first day of month
 	 */
-	public Month(String nm, String sea, int qu, int year)
+	public Month(String nm, String sea, int qu, int length, int year, int firstDay)
 	{
 		this.name = nm;
 		this.season = sea;
@@ -89,6 +91,18 @@ public class Month
 		this.year = year;
 		this.days = new ArrayList<>();
 		this.length = 0;
+		
+		for (int i = 0; i < length; i++)
+		{
+			days.add(new Day(i + 1, DayName.names.get(firstDay++), this, year));
+			if (firstDay >= DayName.names.size())
+				firstDay = 0;
+		}
+		
+		if (firstDay == 0)
+			this.lastDay = DayName.names.get(6);
+		else
+			this.lastDay = DayName.names.get(--firstDay);
 	}
 	// end constructors
 	
@@ -100,6 +114,14 @@ public class Month
 	public String getName()
 	{
 		return name;
+	}
+	
+	public void setLastDay(String name)
+	{
+		this.lastDay = name;
+	}
+	public String getLastDay() {
+		return lastDay;
 	}
 	
 	public void setLength(int leng)

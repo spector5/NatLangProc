@@ -1,5 +1,6 @@
 package CalendarSupport;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.StringTokenizer;
@@ -10,7 +11,7 @@ import java.util.StringTokenizer;
  * price for its company.
  * @author Austin
  ***************************************************************************/
-public class Day implements Comparable<Day>
+public class Day implements Comparable<Day>, Serializable
 {
 	private int number;		// number on the calendar
 	private Month month;	// month it belongs to

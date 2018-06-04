@@ -23,7 +23,8 @@ public abstract class Entity
 {
 	protected String name;
 	protected String symbol;		// stock market abbreviation
-	protected ArrayList<Calendar> cal;		// unique calendar for company
+	protected ArrayList<PricePair> prices;		// unique calendar for company
+	// TODO can probably make prices into a heap with date as the key
 	
 	// getters and setters
 	public void setName(String name)
@@ -44,13 +45,13 @@ public abstract class Entity
 		return symbol;
 	}
 	
-	public void setCalender(ArrayList<Calendar> cal)
+	public void setPrices(ArrayList<PricePair> p)
 	{
-		this.cal = cal;
+		this.prices = p;
 	}
-	public ArrayList<Calendar> getCalender()
+	public ArrayList<PricePair> getPrices()
 	{
-		return cal;
+		return this.prices;
 	}
 	// end getters and setters
 	
@@ -60,49 +61,16 @@ public abstract class Entity
 	 */
 	public Day getLastDay()
 	{
-		// iterate years
-		for (int p = cal.size() - 1; p >= 0; p--)
-		{
-			Calendar c = cal.get(p);
-			// iterate months
-			for (int i = 11; i >= 0; i--)
-			{
-				Month m = c.getMonth(i);
-				// iterate days
-				for (int q = m.getLength() - 1; q >= 0; q--)
-				{
-					if (m.getDay(q).getPrice() != 0.0)
-						return m.getDay(q);
-				}
-			}
-		}
-		return null;
+		return prices.get(prices.size() - 1).getDate();
 	}
-	
-	// TODO this gets all 0s for e2 for some reason (not sure if this was fixed 5/14)
+
 	/**
 	 * Finds the first date that has a stock value
 	 * @return day with first stock value
 	 */
 	public Day getFirstDay()
 	{
-		// iterate years
-		for (int p = 0; p < cal.size(); p++)
-		{
-			Calendar c = cal.get(p);
-			// iterate months
-			for (int i = 0; i < 12; i++)
-			{
-				Month m = c.getMonth(i);
-				// iterate days
-				for (int q = 0; q < m.getLength(); q++)
-				{
-					if (m.getDay(q).getPrice() != 0.0)
-						return m.getDay(q);
-				}
-			}
-		}
-		return null;
+		return prices.get(0).getDate();
 	}
 
 	/**
@@ -111,7 +79,7 @@ public abstract class Entity
 	 * @param endDate = date in file to finish finding prices
 	 * @throws IOException
 	 */
-	public void fillCalenderWithPrice(String startDate, String endDate) throws IOException
+	public void fillEntityWithPrice(String startDate, String endDate, Calendar cal) throws IOException
 	{
 		BufferedReader br;
 		Day start = new Day(startDate);
@@ -132,7 +100,7 @@ public abstract class Entity
 			Day dayIn = new Day(toke.nextToken());
 			if (dayIn.compareTo(end) < 0)
 			{
-				System.out.println("Alert: the end date is not in the list, additional prices will be set to 0.00");
+				System.out.println("Alert[Entity.fillEntityWithPrice]: End date not in file, ending at " + dayIn.getDate());
 				break;
 			}
 			
@@ -148,19 +116,19 @@ public abstract class Entity
 		Day day;
 		while (line != null)
 		{
-			tokenizer = new StringTokenizer(line, "/\t");
-			monthVal = Integer.parseInt(tokenizer.nextToken());
-			dayVal = Integer.parseInt(tokenizer.nextToken());
-			month = cal.get(0).getMonth(monthVal - 1);
-			day = month.getDay(dayVal - 1);
+			tokenizer = new StringTokenizer(line, "\t");
+			day = cal.getDayRef(tokenizer.nextToken());
 			
-			day.setPrice(Float.parseFloat(line.substring(line.lastIndexOf('\t') + 1)));
+			String l = tokenizer.nextToken();
+			prices.add(new PricePair(day, Float.parseFloat(l)));
 			
 			// ends loop at start date
 			if (line.indexOf(startDate) == 0)
 				break;
 			line = br.readLine();
 		}
+		if (line == null)
+			System.out.println("Alert[Entity.fillEntityWithPrice]: Start date not in file, starting at " + prices.get(prices.size() - 1).getDate().getDate());
 	}
 
 	/**
@@ -173,93 +141,59 @@ public abstract class Entity
 	{
 		float total = 0;
 		int num = 0;
-		// iterate years
-		for (int y = 0; y < cal.size(); y++)
+		int x = 0;
+		
+		// get index of first day
+		while (x < prices.size())
 		{
-			Calendar calen = cal.get(y);
-			// iterate months
-			for (int m = 0; m < calen.getAllMonths().size(); m++)
-			{
-				Month month = calen.getMonth(m);
-				// iterate days
-				for (int d = 0; d < month.getLength(); d++)
-				{
-					Day day = month.getDay(d);
-					if (day.getPrice() != 0 && (day.compareTo(start) >= 0 && day.compareTo(end) <= 0))
-					{
-						total += day.getPrice();
-						num++;
-					}
-				}
-			}
+			if (prices.get(x).getDate().equals(start.getDate()))
+				break;
+			x++;
 		}
+		
+		// add prices in range
+		do
+		{
+			total += prices.get(x).getPrice();
+			x++;
+		} while (prices.get(x).getDate().compareTo(end) >= 0);
+		
 		return total / num;
 	}
 	
 	/**
-	 * Returns list of prices between two dates
+	 * Returns list of price pairs between two dates
 	 * @param start = first day to add to list
 	 * @param end = last day to add to list
 	 * @return list of prices
 	 */
-	public ArrayList<Float> getPriceListBetweenDates(Day start, Day end)
+	public ArrayList<PricePair> getPricePairs(Day start, Day end)
 	{
-		ArrayList<Float> ret = new ArrayList<>();
+		ArrayList<PricePair> ret = new ArrayList<>();
+		int x = 0;
 		
-		for (int y = 0; y < cal.size(); y++)
+		// get index of first day
+		while (x < prices.size())
 		{
-			Calendar calen = cal.get(y);
-			for (int m = 0; m < calen.getAllMonths().size(); m++)
-			{
-				Month month = calen.getMonth(m);
-				for (int d = 0; d < month.getLength(); d++)
-				{
-					Day day = month.getDay(d);
-					if (day.getPrice() != 0 && (day.compareTo(start) >= 0 && day.compareTo(end) <= 0))
-					{
-						ret.add(day.getPrice());
-					}
-				}
-			}
+			if (prices.get(x).getDate().equals(start.getDate()))
+				break;
+			x++;
 		}
+		
+		// add prices in range
+		do
+		{
+			ret.add(prices.get(x));
+			x++;
+		} while (prices.get(x).getDate().compareTo(end) >= 0);
+		
 		return ret;
 	}
 	
-	/**
-	 * Returns table of prices between two dates
-	 * @param start = first day to add to list
-	 * @param end = last day to add to list
-	 * @return table of prices with date as key
-	 */
-	public LinkedHashMap<String, Float> getPriceTableBetweenDates(Day start, Day end)
+	public void printPrices()
 	{
-		LinkedHashMap<String, Float> ret = new LinkedHashMap<>();
-		
-		for (int y = 0; y < cal.size(); y++)
-		{
-			Calendar calen = cal.get(y);
-			for (int m = 0; m < calen.getAllMonths().size(); m++)
-			{
-				Month month = calen.getMonth(m);
-				for (int d = 0; d < month.getLength(); d++)
-				{
-					Day day = month.getDay(d);
-					if (day.getPrice() != 0 && (day.compareTo(start) >= 0 && day.compareTo(end) <= 0))
-					{
-						ret.put(day.getDate(), day.getPrice());
-					}
-				}
-			}
-		}
-		return ret;
-	}
-	
-	/**
-	 * Creates a calendar from a map of dates and prices (should only be used for averaged entities)
-	 * @param map = map of date strings and price floats
-	 */
-	public void createCalendarFromMap(LinkedHashMap<String, Float> map)
-	{
-		
+		System.out.println(name + " (" + symbol + ")");
+		for (int i = 0; i < prices.size(); i++)
+			System.out.println(prices.get(i));
 	}
 }

@@ -25,7 +25,7 @@ public class Index extends Entity
 	{
 		this.name = null;
 		this.symbol = null;
-		this.cal = new ArrayList<>();
+		this.prices = new ArrayList<>();
 	}
 	
 	/**
@@ -34,23 +34,11 @@ public class Index extends Entity
 	 * @param symbol = symbol of company on stock market
 	 * @param calandar = calendar specific to company
 	 */
-	public Index(String name, String symbol, ArrayList<Calendar> calandar)
-	{
-		this.name = name;
-		this.symbol = symbol;
-		this.cal = calandar;
-	}
-	
-	/**
-	 * Constructor, set basic information
-	 * @param name = name of company
-	 * @param symbol = symbol of company on stock market
-	 */
 	public Index(String name, String symbol)
 	{
 		this.name = name;
 		this.symbol = symbol;
-		this.cal = null;
+		this.prices = new ArrayList<>();
 	}
 	// end constructors
 }

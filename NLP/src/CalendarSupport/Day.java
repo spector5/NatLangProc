@@ -16,7 +16,6 @@ public class Day implements Comparable<Day>, Serializable
 	private int number;		// number on the calendar
 	private Month month;	// month it belongs to
 	private ArrayList<Event> events;	// events happening on this day, one time or recurring doesn't matter
-	private float closePrice;
 	private int year;
 	private String name;	// day of the week
 	
@@ -33,7 +32,6 @@ public class Day implements Comparable<Day>, Serializable
 		this.year = Integer.parseInt(toke.nextToken());
 		this.events = null;
 		this.name = null;	// TODO make getter setter
-		this.closePrice = 0;
 	}
 	
 	/**
@@ -50,7 +48,6 @@ public class Day implements Comparable<Day>, Serializable
 		events = new ArrayList<>();
 		this.year = year;
 		this.name = name;	// TODO make getter setter
-		this.closePrice = 0;
 	}
 	
 	/**
@@ -66,7 +63,6 @@ public class Day implements Comparable<Day>, Serializable
 		this.month = month;
 		events = new ArrayList<>();
 		this.year = year;
-		closePrice = price;
 	}
 	// end constructors
 	
@@ -111,15 +107,6 @@ public class Day implements Comparable<Day>, Serializable
 	public Iterator<Event> getEventIterator()
 	{
 		return events.iterator();
-	}
-
-	public float getPrice()
-	{
-		return closePrice;
-	}
-	public void setPrice(float price)
-	{
-		closePrice = price;
 	}
 	
 	public int getYear()

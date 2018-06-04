@@ -1,12 +1,11 @@
 package RunningPackage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import CalendarSupport.Calendar;
 import CalendarSupport.DayName;
+import CalendarSupport.Year;
 import CompanySupport.Company;
-import CompanySupport.EntityOperations;
 import CompanySupport.Index;
 
 /**
@@ -33,25 +32,19 @@ public class Driver
 	
 	public static void main (String[] args) throws IOException
 	{
-		ArrayList<Calendar> nasCal = new ArrayList<>();
-		nasCal.add(new Calendar(false, 2013, DayName.TUESDAY));
-		Index nas = new Index("NASDAQ", "^IXIC", nasCal);
+		Year twentyThirteen = new Year(2013, false, DayName.names.get(2));
+		Calendar cal = new Calendar();
+		cal.addYear(twentyThirteen);
 		
-		ArrayList<Calendar> sapCal = new ArrayList<>();
-		sapCal.add(new Calendar(false, 2013, DayName.TUESDAY));
-		Index sap = new Index("S&P 500", "^GSPC", sapCal);
-		
-		ArrayList<Calendar> krabCal = new ArrayList<>();
-		krabCal.add(new Calendar(false, 2013, DayName.TUESDAY));
-		Company krab = new Company("Krusty Krab", "KK", "fast food", null, "Eugene Krabs", krabCal);
-		
-		//nas.fillCalenderWithPrice("1/1/2013", "12/31/2013");
-		//krab.fillCalenderWithPrice("1/1/2013", "12/31/2013");
-		nas.fillCalenderWithPrice("3/1/2013", "3/11/2013");
-		sap.fillCalenderWithPrice("3/1/2013", "3/11/2013");
-		krab.fillCalenderWithPrice("3/1/2013", "3/11/2013");
-		
+		Index nas = new Index("NASDAQ", "^IXIC");
+		Index sap = new Index("S&P 500", "^GSPC");
+		Company krab = new Company("Krusty Krab", "KK", "fast food", null, "Eugene Krabs");
+
+		nas.fillEntityWithPrice("1/1/2012", "12/25/2013", cal);
+		sap.fillEntityWithPrice("3/1/2013", "3/11/2013", cal);
+		krab.fillEntityWithPrice("3/1/2013", "3/11/2013", cal);
+
 		//EntityOperations.calcCorrelation(krab,  nas);
-		EntityOperations.combineIndices(nas, sap);
+		//EntityOperations.combineIndices(nas, sap);
 	}
 }

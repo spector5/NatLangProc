@@ -41,19 +41,19 @@ public class Year implements Serializable
 		/* others to add
 		 * easter, unknown date
 		 */
-		months.get(0).getDay(0).addEvent(new Event("New Years Day", true, "1/1", 1, TimeUnit.Day));
-		months.get(1).getDay(1).addEvent(new Event("Groundhogs Day", true, "2/2", 1, TimeUnit.Day));
-		months.get(1).getDay(13).addEvent(new Event("Valentines Day", true, "2/14", 1, TimeUnit.Day));
-		months.get(2).getDay(19).addEvent(new Event("First Day of Spring", true, "3/20", 1, TimeUnit.Day));
-		months.get(3).getDay(14).addEvent(new Event("Tax Day", true, "4/15", 1, TimeUnit.Day));
-		months.get(4).getDay(4).addEvent(new Event("Cinco De Mayo", true, "5/5", 1, TimeUnit.Day));
-		months.get(5).getDay(20).addEvent(new Event("First Day of Summer", true, "6/21", 1, TimeUnit.Day));
-		months.get(6).getDay(3).addEvent(new Event("Independence Day", true, "7/4", 1, TimeUnit.Day));
-		months.get(8).getDay(22).addEvent(new Event("First Day of Fall", true, "9/23", 1, TimeUnit.Day));
-		months.get(9).getDay(30).addEvent(new Event("Halloween", true, "10/31", 1, TimeUnit.Day));
-		months.get(10).getDay(10).addEvent(new Event("Veterans Day", true, "11/11", 1, TimeUnit.Day));
-		months.get(11).getDay(20).addEvent(new Event("First Day of Winter", true, "12/21", 1, TimeUnit.Day));
-		months.get(11).getDay(24).addEvent(new Event("Christmas", true, "12/25", 1, TimeUnit.Day));
+		months.get(0).getDayByIndex(0).addEvent(new Event("New Years Day", true, "1/1", 1, TimeUnit.Day));
+		months.get(1).getDayByIndex(1).addEvent(new Event("Groundhogs Day", true, "2/2", 1, TimeUnit.Day));
+		months.get(1).getDayByIndex(13).addEvent(new Event("Valentines Day", true, "2/14", 1, TimeUnit.Day));
+		months.get(2).getDayByIndex(19).addEvent(new Event("First Day of Spring", true, "3/20", 1, TimeUnit.Day));
+		months.get(3).getDayByIndex(14).addEvent(new Event("Tax Day", true, "4/15", 1, TimeUnit.Day));
+		months.get(4).getDayByIndex(4).addEvent(new Event("Cinco De Mayo", true, "5/5", 1, TimeUnit.Day));
+		months.get(5).getDayByIndex(20).addEvent(new Event("First Day of Summer", true, "6/21", 1, TimeUnit.Day));
+		months.get(6).getDayByIndex(3).addEvent(new Event("Independence Day", true, "7/4", 1, TimeUnit.Day));
+		months.get(8).getDayByIndex(22).addEvent(new Event("First Day of Fall", true, "9/23", 1, TimeUnit.Day));
+		months.get(9).getDayByIndex(30).addEvent(new Event("Halloween", true, "10/31", 1, TimeUnit.Day));
+		months.get(10).getDayByIndex(10).addEvent(new Event("Veterans Day", true, "11/11", 1, TimeUnit.Day));
+		months.get(11).getDayByIndex(20).addEvent(new Event("First Day of Winter", true, "12/21", 1, TimeUnit.Day));
+		months.get(11).getDayByIndex(24).addEvent(new Event("Christmas", true, "12/25", 1, TimeUnit.Day));
 		
 		// month that change day each year
 		// martin luther king day (third mon in jan)
@@ -61,11 +61,11 @@ public class Year implements Serializable
 		Month month = months.get(0);
 		for (int i = 0; i < month.getLength(); i++)
 		{
-			if (month.getDay(i).getDayOfWeek().equals(DayName.MONDAY))
+			if (month.getDayByIndex(i).getDayOfWeek().equals(DayName.MONDAY))
 			{
 				if (++days == 3) 
 				{
-					month.getDay(i).addEvent(new Event("Martin Luther King Jr. Day", true, "1/" + (i + 1), 1, TimeUnit.Day));
+					month.getDayByIndex(i).addEvent(new Event("Martin Luther King Jr. Day", true, "1/" + (i + 1), 1, TimeUnit.Day));
 					break;
 				}
 			}
@@ -75,11 +75,11 @@ public class Year implements Serializable
 		month = months.get(1);
 		for (int i = 0; i < month.getLength(); i++)
 		{
-			if (month.getDay(i).getDayOfWeek().equals(DayName.MONDAY))
+			if (month.getDayByIndex(i).getDayOfWeek().equals(DayName.MONDAY))
 			{
 				if (++days == 3) 
 				{
-					month.getDay(i).addEvent(new Event("Presidents Day", true, "2/" + (i + 1), 1, TimeUnit.Day));
+					month.getDayByIndex(i).addEvent(new Event("Presidents Day", true, "2/" + (i + 1), 1, TimeUnit.Day));
 					break;
 				}
 			}
@@ -89,11 +89,11 @@ public class Year implements Serializable
 		month = months.get(4);
 		for (int i = 0; i < month.getLength(); i++)
 		{
-			if (month.getDay(i).getDayOfWeek().equals(DayName.SUNDAY))
+			if (month.getDayByIndex(i).getDayOfWeek().equals(DayName.SUNDAY))
 			{
 				if (++days == 2) 
 				{
-					month.getDay(i).addEvent(new Event("Mothers Day", true, "5/" + (i + 1), 1, TimeUnit.Day));
+					month.getDayByIndex(i).addEvent(new Event("Mothers Day", true, "5/" + (i + 1), 1, TimeUnit.Day));
 					break;
 				}
 			}
@@ -103,11 +103,11 @@ public class Year implements Serializable
 		month = months.get(4);
 		for (int i = month.getLength() - 1; i >= 0; i--)
 		{
-			if (month.getDay(i).getDayOfWeek().equals(DayName.MONDAY))
+			if (month.getDayByIndex(i).getDayOfWeek().equals(DayName.MONDAY))
 			{
 				if (++days == 1) 
 				{
-					month.getDay(i).addEvent(new Event("Memorial Day", true, "5/" + (i + 1), 1, TimeUnit.Day));
+					month.getDayByIndex(i).addEvent(new Event("Memorial Day", true, "5/" + (i + 1), 1, TimeUnit.Day));
 					break;
 				}
 			}
@@ -117,11 +117,11 @@ public class Year implements Serializable
 		month = months.get(5);
 		for (int i = 0; i < month.getLength(); i++)
 		{
-			if (month.getDay(i).getDayOfWeek().equals(DayName.SUNDAY))
+			if (month.getDayByIndex(i).getDayOfWeek().equals(DayName.SUNDAY))
 			{
 				if (++days == 3) 
 				{
-					month.getDay(i).addEvent(new Event("Fathers Day", true, "6/" + (i + 1), 1, TimeUnit.Day));
+					month.getDayByIndex(i).addEvent(new Event("Fathers Day", true, "6/" + (i + 1), 1, TimeUnit.Day));
 					break;
 				}
 			}
@@ -131,11 +131,11 @@ public class Year implements Serializable
 		month = months.get(8);
 		for (int i = 0; i < month.getLength(); i++)
 		{
-			if (month.getDay(i).getDayOfWeek().equals(DayName.MONDAY))
+			if (month.getDayByIndex(i).getDayOfWeek().equals(DayName.MONDAY))
 			{
 				if (++days == 1) 
 				{
-					month.getDay(i).addEvent(new Event("Labor Day", true, "9/" + (i + 1), 1, TimeUnit.Day));
+					month.getDayByIndex(i).addEvent(new Event("Labor Day", true, "9/" + (i + 1), 1, TimeUnit.Day));
 					break;
 				}
 			}
@@ -145,11 +145,11 @@ public class Year implements Serializable
 		month = months.get(9);
 		for (int i = 0; i < month.getLength(); i++)
 		{
-			if (month.getDay(i).getDayOfWeek().equals(DayName.MONDAY))
+			if (month.getDayByIndex(i).getDayOfWeek().equals(DayName.MONDAY))
 			{
 				if (++days == 2) 
 				{
-					month.getDay(i).addEvent(new Event("Columbus Day", true, "10/" + (i + 1), 1, TimeUnit.Day));
+					month.getDayByIndex(i).addEvent(new Event("Columbus Day", true, "10/" + (i + 1), 1, TimeUnit.Day));
 					break;
 				}
 			}
@@ -159,23 +159,33 @@ public class Year implements Serializable
 		month = months.get(10);
 		for (int i = 0; i < month.getLength(); i++)
 		{
-			if (month.getDay(i).getDayOfWeek().equals(DayName.THURSDAY))
+			if (month.getDayByIndex(i).getDayOfWeek().equals(DayName.THURSDAY))
 			{
 				if (++days == 4) 
 				{
-					month.getDay(i).addEvent(new Event("Thanksgiving", true, "11/" + (i + 1), 1, TimeUnit.Day));
-					month.getDay(i + 1).addEvent(new Event("Black Friday", true, "11/" + (i + 2), 1, TimeUnit.Day));
+					month.getDayByIndex(i).addEvent(new Event("Thanksgiving", true, "11/" + (i + 1), 1, TimeUnit.Day));
+					month.getDayByIndex(i + 1).addEvent(new Event("Black Friday", true, "11/" + (i + 2), 1, TimeUnit.Day));
 					if (i >= 26)
 					{
-						months.get(11).getDay((i + 4) - SHORT_MONTH)
+						months.get(11).getDayByIndex((i + 4) - SHORT_MONTH)
 						.addEvent(new Event("Cyber Monday", true, "12/" + ((i + 5) - SHORT_MONTH), 1, TimeUnit.Day));
 					}
 					else
-						month.getDay(i + 4).addEvent(new Event("Cyber Monday", true, "11/" + (i + 5), 1, TimeUnit.Day));
+						month.getDayByIndex(i + 4).addEvent(new Event("Cyber Monday", true, "11/" + (i + 5), 1, TimeUnit.Day));
 					break;
 				}
 			}
 		}
+	}
+	
+	public int getYearNum()
+	{
+		return this.year;
+	}
+	
+	public Month getMonthByIndex(int index)
+	{
+		return this.months.get(index);
 	}
 	
 	public void printYear()
@@ -187,7 +197,7 @@ public class Year implements Serializable
 			
 			for (int q = 0; q < list.size(); q++)
 			{
-				System.out.print(list.get(q).getDayOfWeek() + " " + list.get(q).getDate() + ": " + list.get(q).getPrice() + " : ");
+				System.out.print(list.get(q).getDayOfWeek() + " " + list.get(q).getDate() + ": ");
 				ArrayList<Event> ev = list.get(q).getEvents();
 				
 				for (int w = 0; w < ev.size(); w++)

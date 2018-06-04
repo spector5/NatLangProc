@@ -24,24 +24,6 @@ public class Company extends Entity
 	 * @param pres = president/ceo of company
 	 * @param calandar = calender specific to company
 	 */
-	public Company(String name, String symbol, String ind, String parent, String pres, ArrayList<Calendar> calandar)
-	{
-		this.name = name;
-		this.symbol = symbol;
-		this.industry = ind;
-		this.parent = parent;
-		this.president = pres;
-		this.cal = calandar;
-	}
-	
-	/**
-	 * Constructor, set basic information
-	 * @param name = name of company
-	 * @param symbol = symbol of company on stock market
-	 * @param ind = industry of company
-	 * @param parent = parent company (blank if there are none)
-	 * @param pres = president/ceo of company
-	 */
 	public Company(String name, String symbol, String ind, String parent, String pres)
 	{
 		this.name = name;
@@ -49,7 +31,7 @@ public class Company extends Entity
 		this.industry = ind;
 		this.parent = parent;
 		this.president = pres;
-		this.cal = null;
+		this.prices = new ArrayList<>();
 	}
 	
 	/**
@@ -65,7 +47,7 @@ public class Company extends Entity
 		this.industry = ind;
 		this.parent = null;
 		this.president = null;
-		this.cal = null;
+		this.prices = new ArrayList<>();
 	}
 	// end constructors
 	

@@ -94,9 +94,9 @@ public class Month implements Serializable
 		
 		for (int i = 0; i < length; i++)
 		{
-			days.add(new Day(i + 1, DayName.names.get(firstDay++), this, year));
 			if (firstDay >= DayName.names.size())
 				firstDay = 0;
+			days.add(new Day(i + 1, DayName.names.get(firstDay++), this, year));
 		}
 		
 		if (firstDay == 0)
@@ -164,7 +164,7 @@ public class Month implements Serializable
 	{
 		days.add(day);
 	}
-	public Day getDay(int index)
+	public Day getDayByIndex(int index)
 	{
 		return days.get(index);
 	}
